@@ -6,7 +6,7 @@ This project comprises two parts. In the first part, you will implement some imp
 In the second part, you will use the embeddings produced by your BERT model on three downstream tasks: sentiment classification, paraphrase detection, and semantic similarity. You will implement extensions to improve your model's performance on the three downstream tasks.
 
 In broad strokes, Part 1 of this project targets:
-* bert.py: Missing code blocks. --> <span style="color: red;">Done!</span>
+* bert.py: Missing code blocks. --------------------------------------------> **Done!**
 * classifier.py: Missing code blocks.
 * optimizer.py: Missing code blocks.
 
