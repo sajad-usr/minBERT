@@ -41,10 +41,12 @@ class AdamW(Optimizer):
 
                 # State should be stored in this dictionary.
                 state = self.state[p]
-
                 # Access hyperparameters from the `group` dictionary.
                 alpha = group["lr"]
-
+                beta1, beta2 = group["betas"]
+                eps = group["eps"]
+                weight_decay = group["weight_decay"]
+                correct_bias = group["correct_bias"]
                 # Complete the implementation of AdamW here, reading and saving
                 # your state in the `state` dictionary above.
                 # The hyperparameters can be read from the `group` dictionary
@@ -58,9 +60,39 @@ class AdamW(Optimizer):
                 # 3. Update parameters (p.data).
                 # 4. Apply weight decay after the main gradient-based updates.
                 # Refer to the default project handout for more details.
-
                 ### TODO
-                raise NotImplementedError
+                if len(state) == 0:
+                    m = 0
+                    v = 0
+                    t = 0
+                else:
+                    m, v, t = state["m"], state["v"], state["t"]
 
+                t = t + 1
+                m = beta1 * m + (1 - beta1) * grad
+                v = beta2 * v + (1 - beta2) * grad * grad
+
+                # LESS EFFICIENT:
+                # if correct_bias:
+                #     m_hat = m / (1 - beta1**t)
+                #     v_hat = v / (1 - beta2**t)
+                # else:
+                #     m_hat = m
+                #     v_hat = v
+                #
+                # p.data = p.data - alpha * m_hat / (v_hat ** 0.5 + eps)
+                # p.data = p.data - alpha * weight_decay * p.data
+
+                # MORE EFFICIENT:
+                if correct_bias:
+                    alpha_t = alpha * (1 - beta2 ** t) ** 0.5 / (1 - beta1 ** t)
+                    p.data = p.data - alpha_t * m / (v ** 0.5 + eps)
+                    p.data = p.data - alpha * weight_decay * p.data
+                else:
+                    raise NotImplementedError
+
+                self.state[p]["m"] = m
+                self.state[p]["v"] = v
+                self.state[p]["t"] = t
 
         return loss
