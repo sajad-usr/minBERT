@@ -59,7 +59,7 @@ class BertSentimentClassifier(torch.nn.Module):
         # the training loop currently uses F.cross_entropy as the loss function.
         ### TODO
         bert_out = self.bert(input_ids=input_ids, attention_mask=attention_mask)
-        logits = self.dropout(bert_out.pooler_output)
+        logits = self.dropout(bert_out['pooler_output'])
         logits = self.classifier(logits)
         return logits
 
@@ -235,7 +235,11 @@ def save_model(model, optimizer, args, config, filepath):
 
 
 def train(args):
-    device = torch.device('cuda') if args.use_gpu else torch.device('cpu')
+    if torch.backends.mps.is_available():
+        device = torch.device('mps') if args.use_gpu else torch.device('cpu')
+    elif torch.cuda.is_available():
+        device = torch.device('cuda') if args.use_gpu else torch.device('cpu')
+
     # Create the data and its corresponding datasets and dataloader.
     train_data, num_labels = load_data(args.train, 'train')
     dev_data = load_data(args.dev, 'valid')
@@ -301,7 +305,11 @@ def train(args):
 
 def test(args):
     with torch.no_grad():
-        device = torch.device('cuda') if args.use_gpu else torch.device('cpu')
+        if torch.backends.mps.is_available():
+            device = torch.device('mps') if args.use_gpu else torch.device('cpu')
+        elif torch.cuda.is_available():
+            device = torch.device('cuda') if args.use_gpu else torch.device('cpu')
+
         saved = torch.load(args.filepath)
         config = saved['model_config']
         model = BertSentimentClassifier(config)
