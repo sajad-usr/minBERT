@@ -7,7 +7,7 @@ In the second part, you will use the embeddings produced by your BERT model on t
 
 In broad strokes, Part 1 of this project targets:
 * bert.py: Missing code blocks.---------------------------------------------> **Done!**
-* classifier.py: Missing code blocks.---------------------------------------> **Done!**
+* classifier.py: Missing code blocks.----------------------------------------> **Done!**
 * optimizer.py: Missing code blocks.----------------------------------------> **Done!**
 
 And Part 2 targets:
