@@ -19,6 +19,16 @@ And Part 2 targets:
 
 Follow `setup.sh` to properly setup a conda environment and install dependencies.
 
+## Results
+### Part 1.
+------------------------------------
+||SST|CFIMDB|
+------------------------------------
+|Last Layer Fine-Tuning|40.1%|79.2%|
+------------------------------------
+|Full Model Fine-Tuning|52.4%|96.7%|
+------------------------------------
+
 ## Acknowledgement
 
 The BERT implementation part of the project was adapted from the "minbert" assignment developed at Carnegie Mellon University's [CS11-711 Advanced NLP](http://phontron.com/class/anlp2021/index.html),
