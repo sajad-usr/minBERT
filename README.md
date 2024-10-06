@@ -21,13 +21,11 @@ Follow `setup.sh` to properly setup a conda environment and install dependencies
 
 ## Results
 ### Part 1.
-------------------------------------
-||SST|CFIMDB|
-------------------------------------
-|Last Layer Fine-Tuning|40.1%|79.2%|
-------------------------------------
-|Full Model Fine-Tuning|52.4%|96.7%|
-------------------------------------
+|                               | SST   | CFIMDB |
+|-------------------------------|-------|--------|
+| Last Layer Fine-Tuning         | 40.1% | 79.2%  |
+| Full Model Fine-Tuning         | 52.4% | 96.7%  |
+
 
 ## Acknowledgement
 
